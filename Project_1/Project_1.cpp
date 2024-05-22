@@ -13,7 +13,7 @@ using namespace std;
 
 int main()
 {
-	srand(3); // 고정된 시드 값(3) 설정
+	srand(static_cast<unsigned int>(time(0))); // 고정된 시드 값(3) 설정
 	int Input = 0;
 	int Total = 0;
 
@@ -51,7 +51,7 @@ int main()
 		// 컴퓨터의 랜덤 입력
 		cout << "-----컴퓨터가 입력한 숫자!-----" << endl;
 		Input = rand() % 3 + 1;
-
+		
 		Total += Input;
 		for (int i = 0; i < Input; ++i)
 		{
