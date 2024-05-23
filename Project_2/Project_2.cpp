@@ -13,6 +13,9 @@
 
 using namespace std;
 
+//
+// 함수 선언
+//
 string GetUserInput(const unordered_set<string>& userWord);
 bool Input_Matching(const string& word1, const string& word2);
 int PlayGame();
@@ -26,9 +29,10 @@ int main()
 
 	return 0;
 }
-//
+
 //
 // 사용자로부터 단어를 입력받는 함수
+// 
 string GetUserInput(const unordered_set<string>& UsedWord)
 {
 	string Input;
@@ -52,16 +56,16 @@ string GetUserInput(const unordered_set<string>& UsedWord)
 }
 
 //
-//
 // 이전 단어의 끝 알파벳이 새로 입력된 단어의 첫 알파벳과 일치하는지 확인 하는 함수
+// 
 bool Input_Matching(string& word1, string& word2)
 {
 	return (word1.back() == word2.front());
 }
 
 //
-//
 // 끝말잇기 게임을 실행하는 함수
+// 
 int PlayGame()
 {
 	vector<string> words = { "banaba", "watch", "cup", "chair", "airplane" };

@@ -13,7 +13,7 @@ using namespace std;
 
 int main()
 {
-	srand(static_cast<unsigned int>(time(0))); // 고정된 시드 값(3) 설정
+	srand(static_cast<unsigned int>(time(nullptr)));
 	int Input = 0;
 	int Total = 0;
 
@@ -35,7 +35,10 @@ int main()
 			cout << "잘못된 입력입니다. 1에서 3 사이의 숫자를 입력하세요." << endl;
 			continue;
 		}
-		
+
+		//
+		// 사용자의 입력
+		//
 		cout << "-----사용자가 입력한 숫자!-----" << endl;
 		Total += Input;
 		for (int i = 0; i < Input; ++i)
@@ -47,8 +50,10 @@ int main()
 			cout << "사용자의 입력으로 숫자가 31을 넘었습니다." << endl << "*** 컴퓨터 승리! ***" << endl;
 			break;
 		}
-		
+
+		//
 		// 컴퓨터의 랜덤 입력
+		// 
 		cout << "-----컴퓨터가 입력한 숫자!-----" << endl;
 		Input = rand() % 3 + 1;
 		
