@@ -1,20 +1,117 @@
-﻿// Project_4.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
+﻿// Project 4
+// 마방진 만들기
+// 사용자로부터 홀수 n을 입력 받아 n * n의 마방진 만들기
+// 마방진 => 1 ~ n제곱까지의 수를 정사각형으로 배열해 가로, 세로, 대각의 합계가 모두 같도록 만든 것
+// 
+// 1) 1은 첫 행의 가운데에 위치한다.
+// 2) 우상단으로 갈 수록 숫자가 1씩 늘어난다.
+// 3) 우상단으로 이동하는 도중 이미 칸이 채워져 있으면 바로 아래 칸에 다음 숫자가 채워진다.
+// 4) 첫번째 행에서 우상단으로 이동할 때는 마지막 행의 다음 열로 이동한다.
+// 5) 마지막 열에서 우상단으로 이동할 때는 첫번째 열의 이전 행으로 이동한다.
+// 6) 첫번째 행의 마지막 열에서는 우상단으로 이동하는 것이 아니라 바로 아래칸으로 이동
 
 #include <iostream>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+//
+// 함수선언
+//
+int Num_Check();
+vector<vector<int>> CreatSquare(int n);
+void Print_Square(const vector<vector<int>>& Square);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	int size = Num_Check();
+	if (size == 0)
+	{
+		return 0;
+	}
+
+	vector<vector<int>> Square = CreatSquare(size);
+	Print_Square(Square);
+
+	return 0;
 }
 
-// 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
-// 프로그램 디버그: <F5> 키 또는 [디버그] > [디버깅 시작] 메뉴
+//
+// 입력받은 숫자가 옳은 값인지 확인하는 함수
+//
+int Num_Check()
+{
+	int User_num;
 
-// 시작을 위한 팁: 
-//   1. [솔루션 탐색기] 창을 사용하여 파일을 추가/관리합니다.
-//   2. [팀 탐색기] 창을 사용하여 소스 제어에 연결합니다.
-//   3. [출력] 창을 사용하여 빌드 출력 및 기타 메시지를 확인합니다.
-//   4. [오류 목록] 창을 사용하여 오류를 봅니다.
-//   5. [프로젝트] > [새 항목 추가]로 이동하여 새 코드 파일을 만들거나, [프로젝트] > [기존 항목 추가]로 이동하여 기존 코드 파일을 프로젝트에 추가합니다.
-//   6. 나중에 이 프로젝트를 다시 열려면 [파일] > [열기] > [프로젝트]로 이동하고 .sln 파일을 선택합니다.
+	while (true)
+	{
+		cout << "생성 할 마방진의 크기를 홀수로 입력해주세요(0 => 종료): ";
+		cin >> User_num;
+
+		if (User_num == 0)
+		{
+			return 0;
+		}
+		else if (User_num < 0)
+		{
+			cout << "입력한 숫자는 음수입니다. 다시 입력해주세요." << endl;
+			continue;
+		}
+		else if (User_num % 2 == 1)
+		{
+			cout << "크기가 " << User_num << " * " << User_num << "인 마방진을 생성합니다." << endl;
+			return User_num;
+		}
+		else
+		{
+			cout << "입력한 숫자는 홀수가 아닙니다. 다시 입력해주세요." << endl;
+			continue;
+		}
+	}
+}
+//
+// n * n 의 마방진을 만들기 위한 함수
+//
+vector<vector<int>> CreatSquare(int n)
+{
+	vector<vector<int>>Square(n, vector<int>(n, 0));
+
+	int number = 1; // 마방진의 첫 번째 숫자
+	int i = 0; // i = 행 인덱스
+	int j = n / 2;// j = 열 인덱스
+
+	while (number <= n * n)
+	{
+		Square[i][j] = number;
+		number++;
+		int next_i = (i - 1 + n) % n;
+		int next_j = (j + 1) % n;
+
+		if (Square[next_i][next_j] != 0)
+		{
+			i = (i + 1) % n;
+		}
+		else
+		{
+			i = next_i;
+			j = next_j;
+		}
+	}
+	return Square;
+}
+
+//
+// 마방진을 출력하는 함수
+//
+void Print_Square(const vector<vector<int>>& Square)
+{
+	for (const auto& Square_num : Square)
+	{
+		for (int cell : Square_num)
+		{
+			cout << setw(2) << setfill('0') << cell << " ";
+		}
+		cout << endl;
+	}
+}
